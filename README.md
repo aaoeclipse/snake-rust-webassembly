@@ -12,15 +12,20 @@ Classic game of snake created to run with rust as a game process and rendered ou
 $ wasm-pack build --target web
 ```
 
-2. Go to the www/ directory and start the server.
+2. Go to the www/ directory and install dependencies.
 
 ```bash
 $ cd www/
+$ npm i
 ```
+
+3. Run the program
 
 ```bash
 $ npm run dev
 ```
+
+4. Open browser http://localhost:8080/
 
 ## Rust
 
