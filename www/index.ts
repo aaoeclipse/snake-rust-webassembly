@@ -3,14 +3,14 @@ import init, { World } from "snake_game";
 init().then((_) => {
   const CELL_SIZE = 40;
   const WORLD_WIDTH = 8;
-  const SNAKE_SPAWN_IDX = 2;
+  const SNAKE_SPAWN_IDX = 20;
 
   const world = World.new(WORLD_WIDTH, SNAKE_SPAWN_IDX);
+
   const worldWidth = world.width();
 
   const canvas = <HTMLCanvasElement> document.getElementById("snake-canvas");
   const ctx = canvas.getContext("2d");
-  world.change_state(1);
   canvas.height = worldWidth * CELL_SIZE;
   canvas.width = worldWidth * CELL_SIZE;
 
@@ -52,6 +52,9 @@ init().then((_) => {
     const col = snakeIdx % worldWidth;
     const row = Math.floor(snakeIdx / worldWidth);
 
+    // @ts-ignore
+    ctx?.fillStyle = "#000";
+
     ctx?.beginPath();
     ctx?.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
 
@@ -59,8 +62,23 @@ init().then((_) => {
   }
 
   function paint() {
+    drawApple();
     drawSnake();
     drawWorld();
+  }
+
+  function drawApple(){
+    const apple_idx = world.get_apple();
+
+    const col = apple_idx % worldWidth;
+    const row = Math.floor(apple_idx / worldWidth)
+
+    ctx?.beginPath();
+    // @ts-ignore
+    ctx?.fillStyle = "#FF0000";
+    ctx?.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+
+    ctx?.stroke();
   }
 
   function update() {
